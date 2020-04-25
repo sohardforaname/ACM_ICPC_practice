@@ -2,10 +2,10 @@
 using namespace std;
 const int N = 1e5 + 5;
 typedef long long ll;
-vector<pair<int, string> >v, ans;
+vector<pair<int, string>> v, ans;
 #define pb push_back
 #define mp make_pair
-#define len(x) (x.first*x.second.size())
+#define len(x) (x.first * x.second.size())
 void init(int n, int m)
 {
 	v.clear();

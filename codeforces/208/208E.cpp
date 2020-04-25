@@ -1,22 +1,31 @@
 #include <bits/stdc++.h>
-#pragma GCC optimize(2)
 using namespace std;
-typedef long long ll;
 const int N = 1e5 + 5;
-set<int> s[N << 1];
 vector<int> G[N];
-pair<int, int> p[N];
+int son[N], sz[N], dep[N];
+vector<int> s[N << 1];
 vector<pair<int, int>> q[N];
 int ans[N];
-
-string a[N], b[N];
-int id[N];
-
-int dep[N], son[N], sz[N];
+bool vis[N];
+int f[N][20];
+void init(int n)
+{
+    for (int j = 1; j < 20; ++j)
+        for (int i = 1; i <= n; ++i)
+            f[i][j] = f[f[i][j - 1]][j - 1];
+}
+int getanc(int u, int p)
+{
+    for (int i = 19; ~i; --i)
+        if ((1 << i) & p)
+            u = f[u][i];
+    return u;
+}
 void dfs1(int u, int fa)
 {
     sz[u] = 1;
-    dep[u] = dep[fa] + 1;
+    if (u)
+        dep[u] = dep[fa] + 1;
     for (auto i : G[u])
         if (i != fa)
         {
@@ -26,12 +35,10 @@ void dfs1(int u, int fa)
                 son[u] = i;
         }
 }
-
-bool vis[N];
 void add(int u, int fa, int op)
 {
     if (op == 1)
-        s[dep[u]].insert(p[u].first);
+        s[dep[u]].push_back(u);
     else
         s[dep[u]].clear();
     for (auto i : G[u])
@@ -47,46 +54,38 @@ void dfs2(int u, int fa, int op)
         dfs2(son[u], u, 1), vis[son[u]] = 1;
     add(u, fa, 1);
     for (auto i : q[u])
-        ans[i.first] = s[i.second + dep[u]].size();
+        ans[i.first] = s[dep[u] + i.second].size();
     if (son[u])
         vis[son[u]] = 0;
     if (!op)
-        add(u, fa, -1);
+        add(u, fa, 0);
 }
-
 int main()
 {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int n;
-    cin >> n;
-    int top = 0;
+    int n, a;
+    scanf("%d", &n);
     for (int i = 1; i <= n; ++i)
     {
-        cin >> a[i] >> p[i].second;
-        b[++top] = a[i];
+        scanf("%d", &a);
+        f[i][0] = a;
+        G[a].push_back(i);
+        G[i].push_back(a);
     }
-    sort(b + 1, b + top + 1);
-    top = unique(b + 1, b + top + 1) - (b + 1);
-    for (int i = 1; i <= n; ++i)
-        p[i].first = lower_bound(b + 1, b + top + 1, a[i]) - b;
-    int rt = 0;
-    for (int i = 1; i <= n; ++i)
-    {
-        G[p[i].second].push_back(i);
-        G[i].push_back(p[i].second);
-    }
-    dfs1(rt, 0);
+    init(n);
+    dfs1(0, 0);
     int m;
-    cin >> m;
+    scanf("%d", &m);
     for (int i = 1; i <= m; ++i)
     {
         int x, y;
-        cin >> x >> y;
-        q[x].push_back({i, y});
+        scanf("%d%d", &x, &y);
+        if (dep[x] - y <= 0)
+            ans[i] = 1;
+        else
+            q[getanc(x, y)].push_back({i, y});
     }
-    dfs2(rt, 0, 0);
+    dfs2(0, 0, 0);
     for (int i = 1; i <= m; ++i)
-        cout << ans[i] << '\n';
+        printf("%d%c", ans[i] - 1, " \n"[i == m]);
     return 0;
 }

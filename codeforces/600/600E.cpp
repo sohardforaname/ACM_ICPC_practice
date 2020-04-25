@@ -34,14 +34,14 @@ void dfs2(int u, int fa, int op)
 {
 	for (auto i : G[u])
 		if (i != son[u] && i != fa)
-			dfs2(i, u, 0); //tot: n
+			dfs2(i, u, 0);
 	if (son[u])
-		dfs2(son[u], u, 1), vis[son[u]] = 1; //tot: n
-	update(u, fa, 1), ans[u] = c;			 //tot: nlogn
+		dfs2(son[u], u, 1), vis[son[u]] = 1;
+	update(u, fa, 1), ans[u] = c;
 	if (son[u])
 		vis[son[u]] = 0;
 	if (!op)
-		update(u, fa, -1), maxn = c = 0; //tot: nlogn
+		update(u, fa, -1), maxn = c = 0;
 }
 int main()
 {
@@ -56,8 +56,8 @@ int main()
 		G[a].push_back(b);
 		G[b].push_back(a);
 	}
-	dfs1(1, 0);	   //tot: n
-	dfs2(1, 0, 0); //tot: n+2nlogn
+	dfs1(1, 0);
+	dfs2(1, 0, 0);
 	for (int i = 1; i <= n; ++i)
 		printf("%lld%c", ans[i], i == n ? '\n' : ' ');
 	return 0;

@@ -22,7 +22,7 @@ void solve()
 				f = 1;
 				break;
 			}
-        ++ans;
+		++ans;
 		if (!f)
 			++ans;
 	}

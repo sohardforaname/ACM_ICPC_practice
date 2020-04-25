@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cstring>
 using namespace std;
 bool mp[5][5];
 bool check()
