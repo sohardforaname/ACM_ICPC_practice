@@ -17,7 +17,7 @@ int main()
     {
         if (w[i] == 0)
         {
-            ans += v[i] * c[i];
+            ans += v[i] * m[i];
             continue;
         }
         int lim = min(m[i], t / w[i]);
