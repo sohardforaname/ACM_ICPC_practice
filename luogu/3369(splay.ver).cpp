@@ -41,7 +41,7 @@ struct Splay
 	{
 		end = fa[end];
 		int f;
-		while(fa[x] != end)
+		while (fa[x] != end)
 		{
 			f = fa[x];
 			if (fa[f] != end)
@@ -49,7 +49,7 @@ struct Splay
 			rotate(x);
 		}
 		up(x);
-		if(!end)
+		if (!end)
 			rt = x;
 	}
 	int newnode(int x, int f)

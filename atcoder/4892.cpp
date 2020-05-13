@@ -11,15 +11,13 @@ int main()
     int len = strlen(s);
     for (int i = len - 1; ~i; --i)
     {
+        sum = (sum + k * (s[i] - '0')) % 2019;
+        ++cnt[sum];
+        k = k * 10 % 2019;
     }
-    ll ans = 0;
+    ll ans = cnt[0];
     for (int i = 0; i < 2019; ++i)
-    {
-        if (!i)
-            ans += cnt[i];
-        else
-            ans += cnt[i] * (cnt[i] - 1ll) / 2;
-    }
+        ans += cnt[i] * (cnt[i] - 1ll) / 2;
     printf("%lld\n", ans);
     return 0;
 }
