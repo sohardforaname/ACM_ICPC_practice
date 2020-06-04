@@ -4,8 +4,8 @@ const int MAXM = 1e5 + 5;
 char a[MAXN];
 struct segtree
 {
-#define ls (k<<1)
-#define rs ((k<<1)+1)
+#define ls (k << 1)
+#define rs ((k << 1) + 1)
 	struct node
 	{
 		int sum;
@@ -42,20 +42,20 @@ struct segtree
 	void pushdown(int k, int l, int r)
 	{
 		int m = (l + r) >> 1;
-		if (tr[k].lazy == 1)//xor
+		if (tr[k].lazy == 1) //xor
 		{
 			xorsolve(ls, l, m);
 			xorsolve(rs, m + 1, r);
 			tr[k].lazy = 0;
 		}
-		else if (tr[k].lazy == 2)//or
+		else if (tr[k].lazy == 2) //or
 		{
 			tr[ls].lazy = tr[rs].lazy = 2;
 			tr[ls].sum = m - l + 1;
 			tr[rs].sum = r - m;
 			tr[k].lazy = 0;
 		}
-		else if (tr[k].lazy == 3)//and
+		else if (tr[k].lazy == 3) //and
 		{
 			tr[ls].lazy = tr[rs].lazy = 3;
 			tr[ls].sum = 0;
@@ -82,17 +82,17 @@ struct segtree
 			pushdown(k, ql, qr);
 		if (l <= ql && r >= qr)
 		{
-			if (val == 1 && tag == 1)//xor
+			if (val == 1 && tag == 1) //xor
 			{
 				tr[k].lazy = 1;
-				tr[k].sum = qr - ql + 1 - tr[k].sum;//È¡·´
+				tr[k].sum = qr - ql + 1 - tr[k].sum;
 			}
-			else if (val == 1 && tag == 2)//or
+			else if (val == 1 && tag == 2) //or
 			{
 				tr[k].lazy = 2;
 				tr[k].sum = qr - ql + 1;
 			}
-			else if (val == 0 && tag == 3)//and
+			else if (val == 0 && tag == 3) //and
 			{
 				tr[k].lazy = 3;
 				tr[k].sum = 0;

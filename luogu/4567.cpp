@@ -69,7 +69,7 @@ struct Splay
 		if (!end)
 			rt = x;
 	}
-	int newnode(int x,int f)
+	int newnode(int x, int f)
 	{
 		int root = ++sz;
 		val[root] = x;

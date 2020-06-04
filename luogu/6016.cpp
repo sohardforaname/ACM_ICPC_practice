@@ -19,16 +19,16 @@ ll ksm(ll a, ll b, ll p)
 }
 struct mat
 {
-	bitset<N>m[N];
+	bitset<N> m[N];
 };
-void print(bitset<N>* bt, int n)
+void print(bitset<N> *bt, int n)
 {
 	for (int i = 1; i <= n; ++i)
 		for (int j = 1; j <= n; ++j)
 			cout << bt[i][j] << " \n"[j == n];
 }
 mat G;
-mat mul(const mat& a, const mat& b, int n)
+mat mul(const mat &a, const mat &b, int n)
 {
 	mat ans, tmp;
 	for (int i = 1; i <= n; ++i)
@@ -39,7 +39,7 @@ mat mul(const mat& a, const mat& b, int n)
 			ans.m[i][j] = (a.m[i] & tmp.m[j]).any();
 	return ans;
 }
-mat pow(mat& a, int b, int n)
+mat pow(mat &a, int b, int n)
 {
 	mat ans;
 	for (int i = 1; i <= n; ++i)

@@ -8,7 +8,7 @@ struct AC
 	int nxt[MAXN][MAXL], fail[MAXN], cntword[MAXN];
 	int in[MAXN], ans[MAXN], hs[MAXN], vis[MAXN];
 	int cnt = 0;
-	void insert(char* str, int len, int id)
+	void insert(char *str, int len, int id)
 	{
 		int root = 0;
 		for (int i = 0; i < len; ++i)
@@ -24,7 +24,7 @@ struct AC
 	}
 	void getfail()
 	{
-		queue<int>que;
+		queue<int> que;
 		int now = 0;
 		for (int i = 0; i < MAXL; ++i)
 			if (nxt[now][i])
@@ -52,7 +52,7 @@ struct AC
 	}
 	void toposort()
 	{
-		queue<int>que;
+		queue<int> que;
 		for (int i = 0; i <= cnt; ++i)
 			if (!in[i])
 				que.push(i);
@@ -67,7 +67,7 @@ struct AC
 				que.push(v);
 		}
 	}
-	void query(char* str, int len)
+	void query(char *str, int len)
 	{
 		int now = 0;
 		for (int i = 0; i < len; ++i)

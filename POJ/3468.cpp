@@ -7,7 +7,7 @@ struct Segtree
 	{
 		int l, r;
 		long long val, lazy;
-	}tree[Tree * 4];
+	} tree[Tree * 4];
 	void build(int l, int r, int k)
 	{
 		tree[k].l = l, tree[k].r = r, tree[k].lazy = 0;

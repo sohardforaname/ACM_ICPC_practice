@@ -22,7 +22,7 @@ int main()
 	int n;
 	cin >> n;
 	string s;
-	vector<int>ans;
+	vector<int> ans;
 	for (int i = 1; i <= n; ++i)
 	{
 		ans.clear();

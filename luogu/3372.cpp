@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-#define Tree 100005 
+#define Tree 100005
 class Segtree
 {
 public:
@@ -32,7 +32,7 @@ public:
 		if (tree[k].lazy)
 			down(k);
 		int m = (tree[k].l + tree[k].r) / 2;
-		if (l <= m )
+		if (l <= m)
 			ans += ask_line(l, r, k * 2);
 		if (r >= m + 1)
 			ans += ask_line(l, r, k * 2 + 1);

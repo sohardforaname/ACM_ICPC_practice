@@ -8,7 +8,7 @@ const int INF = 0x3f3f3f3f;
 int sz[N], dis[N], ans, n, m, siz, maxn, rt;
 int s[N], top, k;
 bool vis[N];
-vector<pair<int, int> >G[N];
+vector<pair<int, int>> G[N];
 void getroot(int u, int fa)
 {
 	sz[u] = 1;

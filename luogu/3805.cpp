@@ -1,7 +1,7 @@
 #include <cstdio>
-#include <cstring> 
-#define max(a,b) (a>b?a:b)
-#define min(a,b) (a>b?b:a)
+#include <cstring>
+#define max(a, b) (a > b ? a : b)
+#define min(a, b) (a > b ? b : a)
 const int MAXN = 22000005;
 char ma[MAXN << 1];
 int mp[MAXN << 1];

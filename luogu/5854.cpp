@@ -2,7 +2,7 @@
 using namespace std;
 const int N = 1e7 + 5;
 const int MAXBUF = 1 << 20;
-char buf[1 << 20], * fh = NULL, * ft = NULL;
+char buf[1 << 20], *fh = NULL, *ft = NULL;
 inline char gc()
 {
 	if (fh == ft)
@@ -50,9 +50,9 @@ int main()
 	int top = 0;
 	for (int i = 1; i <= n; ++i)
 	{
-		while (top && tr[s[top]].num > tr[i].num)//s.top比i小，则s.top在左子树
+		while (top && tr[s[top]].num > tr[i].num) //s.top比i小，则s.top在左子树
 			tr[i].son[0] = s[top--];
-		if (top)//s.top比i小，且值比num[i]小
+		if (top) //s.top比i小，且值比num[i]小
 			tr[s[top]].son[1] = i;
 		s[++top] = i;
 	}

@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cstdio>
 using namespace std;
-#define maxn int(1e6+9)
+#define maxn int(1e6 + 9)
 int trie[maxn][26];
 int cntword[maxn];
 int fail[maxn];
@@ -17,10 +17,10 @@ struct stru
 	int num, pos;
 };
 stru ans[200];
-vector<string>input;
+vector<string> input;
 struct ac
 {
-	void insert(string& str)
+	void insert(string &str)
 	{
 		int root = 0, next;
 		for (int i = 0; i < str.size(); ++i)
@@ -34,7 +34,7 @@ struct ac
 	}
 	void buildfail()
 	{
-		queue<int>que;
+		queue<int> que;
 		for (int i = 0; i < 26; ++i)
 			if (trie[0][i])
 			{
@@ -57,7 +57,7 @@ struct ac
 			}
 		}
 	}
-	void query(string& str)
+	void query(string &str)
 	{
 		int now = 0;
 		for (int i = 0; i < str.size(); ++i)
@@ -68,7 +68,7 @@ struct ac
 		}
 	}
 };
-bool cmp(const stru &a,const stru &b)
+bool cmp(const stru &a, const stru &b)
 {
 	if (a.num == b.num)
 		return a.pos < b.pos;
@@ -84,7 +84,8 @@ int main()
 		memset(trie, 0, sizeof(trie));
 		memset(fail, 0, sizeof(fail));
 		memset(cntword, 0, sizeof(cntword));
-		cnt = 0; strid = 0;
+		cnt = 0;
+		strid = 0;
 		input.clear();
 		for (int i = 1; i <= n; ++i)
 		{

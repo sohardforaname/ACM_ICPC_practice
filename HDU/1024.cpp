@@ -4,7 +4,7 @@
 #include <algorithm>
 using namespace std;
 int num[1000005];
-long long dp[1000005]; //到第i个数的最大值
+long long dp[1000005];
 long long ma[1000005];
 const long long inf = 0x3f3f3f3f;
 int main()

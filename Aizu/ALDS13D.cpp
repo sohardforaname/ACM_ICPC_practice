@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
-vector<int>v;
-stack<int>s;
-stack<pair<int, int> >ps;
+vector<int> v;
+stack<int> s;
+stack<pair<int, int>> ps;
 string str;
 int main()
 {
@@ -20,7 +20,7 @@ int main()
 			s.pop();
 			cnt = i - j;
 			sum += cnt;
-			while (ps.size() && ps.top().first > j)//如果水位上涨，左边界一定变小
+			while (ps.size() && ps.top().first > j) //如果水位上涨，左边界一定变小
 			{
 				cnt += ps.top().second;
 				ps.pop();
@@ -28,7 +28,8 @@ int main()
 			ps.push(make_pair(j, cnt));
 		}
 	}
-	cout << sum << '\n' << ps.size();
+	cout << sum << '\n'
+		 << ps.size();
 	while (ps.size())
 	{
 		v.push_back(ps.top().second);

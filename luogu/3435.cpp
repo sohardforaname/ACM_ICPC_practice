@@ -25,7 +25,7 @@ int main()
 	getnext(str);
 	long long ans = 0;
 	for (int i = 1; i <= n; ++i)
-		if (nextarray[nextarray[i]] > 0)//有前缀的前缀
+		if (nextarray[nextarray[i]] > 0)
 			nextarray[i] = nextarray[nextarray[i]];
 	for (int i = 1; i <= n; ++i)
 		if (nextarray[i])
