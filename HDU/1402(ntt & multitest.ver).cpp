@@ -1,11 +1,11 @@
 //通过HDU，洛谷，51nod
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 3000100, P = 998244353;
+const int N = 300100, P = 998244353;
 
 inline int qpow(int x, int y)
 {
-    int res(1);
+    int res = 1;
     while (y)
     {
         if (y & 1)
@@ -25,20 +25,13 @@ void ntt(int *x, int lim, int opt)
         if (r[i] < i)
             swap(x[i], x[r[i]]);
     for (m = 2; m <= lim; m <<= 1)
-    {
-        k = m >> 1;
-        gn = qpow(3, (P - 1) / m);
-        for (i = 0; i < lim; i += m)
-        {
-            g = 1;
-            for (j = 0; j < k; ++j, g = 1ll * g * gn % P)
+        for (k = m >> 1, gn = qpow(3, (P - 1) / m), i = 0; i < lim; i += m)
+            for (g = 1, j = 0; j < k; ++j, g = 1ll * g * gn % P)
             {
                 tmp = 1ll * x[i + j + k] * g % P;
                 x[i + j + k] = (x[i + j] - tmp + P) % P;
                 x[i + j] = (x[i + j] + tmp) % P;
             }
-        }
-    }
     if (opt == -1)
     {
         reverse(x + 1, x + lim);
