@@ -13,17 +13,17 @@ struct node
 	{
 		to = a, w = b;
 	}
-	bool operator<(const node& a)const
+	bool operator<(const node &a) const
 	{
 		return this->w > a.w;
 	}
 };
-vector<node>E[105];
+vector<node> E[105];
 void dij(int n)
 {
 	memset(vis, 0, sizeof(vis));
 	memset(dis, 0x3f3f3f, sizeof(dis));
-	priority_queue<node>que;
+	priority_queue<node> que;
 	dis[1] = 0;
 	que.push(node(1, dis[1]));
 	while (!que.empty())
@@ -45,7 +45,7 @@ void dij(int n)
 	}
 	cout << *max_element(dis + 2, dis + n + 1) << endl;
 }
-int stoi(string& str)
+int stoi(string &str)
 {
 	int ans = 0;
 	for (int i = 0; i < str.size(); ++i)

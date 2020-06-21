@@ -62,9 +62,9 @@ struct Miller
 	}
 };
 Miller m;
-struct Pollard 
+struct Pollard
 {
-	queue<ll>que;
+	queue<ll> que;
 	ll pollard_rho(ll n, int c)
 	{
 		ll i = 1, k = 2, x = rand() % (n - 1) + 1, y = x;
@@ -105,7 +105,7 @@ int main()
 {
 	int T;
 	scanf("%d", &T);
-	while(T--)
+	while (T--)
 	{
 		ll num;
 		scanf("%lld", &num);

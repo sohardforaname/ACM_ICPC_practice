@@ -2,19 +2,19 @@
 #include <cstdio>
 #include <queue>
 using namespace std;
-#define maxn int(5e5+9)
-#define m(a,b) memset (a,b,sizeof(a));
+#define maxn int(5e5 + 9)
+#define m(a, b) memset(a, b, sizeof(a));
 #pragma GCC Optimize(2)
 int trie[maxn][26];
 int cntword[maxn];
 int fail[maxn];
-int cnt = 0,ans=0;
+int cnt = 0, ans = 0;
 struct AC
 {
 	void insert(char *str)
 	{
 		int root = 0, next;
-		int len=strlen(str);
+		int len = strlen(str);
 		for (int i = 0; i < len; ++i)
 		{
 			next = str[i] - 'a';
@@ -26,7 +26,7 @@ struct AC
 	}
 	void buildfail()
 	{
-		queue<int>que;
+		queue<int> que;
 		for (int i = 0; i < 26; ++i)
 			if (trie[0][i])
 			{
@@ -52,40 +52,40 @@ struct AC
 	void query(char *str)
 	{
 		int now = 0;
-		int len=strlen(str);
+		int len = strlen(str);
 		for (int i = 0; i < len; ++i)
 		{
 			now = trie[now][str[i] - 'a'];
-			for (int j = now; j&&cntword[j]!=-1 ; j = fail[j])
+			for (int j = now; j && cntword[j] != -1; j = fail[j])
 			{
-				ans+=cntword[j];
-				cntword[j]=-1;
+				ans += cntword[j];
+				cntword[j] = -1;
 			}
 		}
 	}
 };
-char mod[55],word[1000005];
+char mod[55], word[1000005];
 int main()
 {
-	int n,m;
+	int n, m;
 	AC ac;
-	scanf("%d",&n);
-	while(n--)
+	scanf("%d", &n);
+	while (n--)
 	{
-		m(trie,0);
-		m(fail,0);
-		m(cntword,0);
-		ans=0;
-		scanf("%d",&m);
-		for(int i=0;i<m;++i)
+		m(trie, 0);
+		m(fail, 0);
+		m(cntword, 0);
+		ans = 0;
+		scanf("%d", &m);
+		for (int i = 0; i < m; ++i)
 		{
-			scanf("%s",mod);
+			scanf("%s", mod);
 			ac.insert(mod);
 		}
 		ac.buildfail();
-		scanf("%s",word);
+		scanf("%s", word);
 		ac.query(word);
-		printf("%d\n",ans);
+		printf("%d\n", ans);
 	}
 	return 0;
 }

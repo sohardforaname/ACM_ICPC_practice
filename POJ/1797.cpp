@@ -11,16 +11,16 @@ struct node
 	{
 		to = a, cost = b;
 	}
-	bool operator<(const node& a)const
+	bool operator<(const node &a) const
 	{
 		return this->cost > a.cost;
 	}
 };
 int vis[1005], dis[1005];
-vector<node>E[1005];
-void dij(int n,int s)
+vector<node> E[1005];
+void dij(int n, int s)
 {
-	queue<node>que;
+	queue<node> que;
 	memset(dis, 0, sizeof(dis));
 	for (int i = 0; i < E[1].size(); ++i)
 	{
@@ -35,7 +35,7 @@ void dij(int n,int s)
 		int u = que.front().to;
 		que.pop();
 		//if (vis[u])
-			//continue;
+		//continue;
 		//vis[u] = 1;
 		for (int i = 0; i < E[u].size(); ++i)
 		{
@@ -44,12 +44,13 @@ void dij(int n,int s)
 			{
 				dis[v] = min(dis[u], cost);
 				//if (!vis[v])
-					que.push(node(v, dis[v]));
+				que.push(node(v, dis[v]));
 			}
 		}
 	}
 	cout << "Scenario #" << s << ":" << endl;
-	cout << dis[n] << endl << endl;
+	cout << dis[n] << endl
+		 << endl;
 }
 int main()
 {

@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 2e5 + 5;
-vector<int>G[MAXN];
+vector<int> G[MAXN];
 struct node
 {
 	int pre, nxt;
 };
 node l[MAXN];
-queue<int>q;
+queue<int> q;
 void init(int n)
 {
 	for (int i = 1; i <= n; ++i)
@@ -24,7 +24,7 @@ void del(int i)
 }
 int cnt, top = 0;
 int ans[MAXN];
-bool vis1[MAXN], vis2[MAXN];//和原图有没有边，是否被访问
+bool vis1[MAXN], vis2[MAXN]; //和原图有没有边，是否被访问
 void bfs()
 {
 	while (l[0].nxt)

@@ -7,7 +7,7 @@ using namespace std;
 const int N = 1e5 + 5;
 int trie[N * 6][28];
 int cnt;
-vector<int>e[N * 6];
+vector<int> e[N * 6];
 int n, m;
 char hs(char ch)
 {
@@ -18,7 +18,7 @@ char hs(char ch)
 	else
 		return 'z' + 2;
 }
-void insert(char* str, int len, int id)
+void insert(char *str, int len, int id)
 {
 	int root = 0;
 	for (int i = 0; i < len; ++i)
@@ -31,7 +31,7 @@ void insert(char* str, int len, int id)
 	e[root].push_back(id);
 }
 int a[N], top = 0;
-void query(char* str, int mat, int len, int u, bool rt)
+void query(char *str, int mat, int len, int u, bool rt)
 {
 	if (mat == len && e[u].size())
 		for (int i = 0; i < e[u].size(); ++i)
@@ -39,11 +39,11 @@ void query(char* str, int mat, int len, int u, bool rt)
 	if (!u && !rt)
 		return;
 	int cur = str[mat] - 'a';
-	if (trie[u][cur])//匹配到字母
+	if (trie[u][cur]) //匹配到字母
 		query(str, mat + 1, len, trie[u][cur], 0);
-	if (trie[u][27])//匹配到?
+	if (trie[u][27]) //匹配到?
 		query(str, mat + 1, len, trie[u][27], 0);
-	if (trie[u][26])//匹配到*
+	if (trie[u][26]) //匹配到*
 		for (int i = 0; mat + i <= len; ++i)
 			query(str, mat + i, len, trie[u][26], 0);
 }

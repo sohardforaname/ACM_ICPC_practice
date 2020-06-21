@@ -11,36 +11,36 @@ struct node
 	{
 		to = a, w = b;
 	}
-	bool operator<(const node& a)const
+	bool operator<(const node &a) const
 	{
 		return this->w > a.w;
 	}
 };
-vector<node>E[30];
+vector<node> E[30];
 int vis[30], dis[30];
 int prim(int n)
 {
 	memset(vis, 0, sizeof(vis));
 	memset(dis, 0x3f3f3f3f, sizeof(dis));
 	dis[1] = 0;
-	priority_queue<node>que;
+	priority_queue<node> que;
 	que.push(node(1, dis[1]));
 	int sum = 0;
 	while (!que.empty())
 	{
-		node to = que.top();//dis较小的点出队
+		node to = que.top(); //dis较小的点出队
 		int u = to.to;
 		que.pop();
 		if (vis[u])
 			continue;
 		vis[u] = 1;
-		sum += to.w;//加上边
+		sum += to.w; //加上边
 		for (int i = 0; i < E[u].size(); ++i)
 		{
 			int v = E[u][i].to;
 			if (dis[v] > E[u][i].w)
 			{
-				dis[v] = E[u][i].w;//维护dis[v]是已经加入最小生成树点集的点的最小距离，且必定是边。
+				dis[v] = E[u][i].w; //维护dis[v]是已经加入最小生成树点集的点的最小距离，且必定是边。
 				que.push(node(v, dis[v]));
 			}
 		}
