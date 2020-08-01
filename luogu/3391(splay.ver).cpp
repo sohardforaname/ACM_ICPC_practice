@@ -119,7 +119,7 @@ struct Splay
 		splay(l, rt), splay(r, son[l][1]);
 		tag[son[r][0]] ^= 1;
 	}
-	void print(int rt,int n)
+	void print(int rt, int n)
 	{
 		pushdown(rt);
 		if (son[rt][0])

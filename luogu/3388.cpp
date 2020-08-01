@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 2e4 + 5;
-vector<int>G[MAXN];
+vector<int> G[MAXN];
 int dfn[MAXN], low[MAXN];
 int dfn_c;
 bool cut[MAXN];
@@ -20,7 +20,7 @@ void dfs(int fa, int u)
 			if (low[i] >= dfn[u])
 			{
 				++son;
-				if(u != fa || son > 1)
+				if (u != fa || son > 1)
 					cut[u] = 1;
 			}
 		}

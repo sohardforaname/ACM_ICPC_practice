@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e4 + 5;
-vector<int>G[MAXN], G1[MAXN], G2[MAXN];
+vector<int> G[MAXN], G1[MAXN], G2[MAXN];
 int w[MAXN], w1[MAXN], tot[MAXN];
 int dfn[MAXN], low[MAXN];
 int scc[MAXN];
-stack<int>s;
+stack<int> s;
 int vis[MAXN];
 int scc_c, scc_cnt;
 int indeg[MAXN];
@@ -47,7 +47,7 @@ void tarjan(int n)
 }
 void topo(int n)
 {
-	queue<int>Q;
+	queue<int> Q;
 	for (int i = 1; i <= n; ++i)
 		if (!indeg[i])
 			Q.push(i), tot[i] = w1[i];

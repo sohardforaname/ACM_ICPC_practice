@@ -4,7 +4,7 @@ const int MAXN = 1e5 + 5;
 int mod;
 struct treediv
 {
-	vector<int>G[MAXN];
+	vector<int> G[MAXN];
 	int fa[MAXN], dep[MAXN], sz[MAXN], son[MAXN];
 	int id[MAXN], top[MAXN], val[MAXN];
 	int cnt, rnk[MAXN];
@@ -55,15 +55,15 @@ struct treediv
 };
 struct segtree
 {
-#define ls (k<<1)
-#define rs ((k<<1)+1)
+#define ls (k << 1)
+#define rs ((k << 1) + 1)
 	treediv td;
 	struct node
 	{
 		int l, r, sum, lazy;
 	};
 	node tr[MAXN << 2];
-	void init(int n,int rt)
+	void init(int n, int rt)
 	{
 		td.init();
 		td.crtGrp(n);
@@ -107,9 +107,9 @@ struct segtree
 		down(k);
 		int m = (tr[k].l + tr[k].r) >> 1;
 		if (l <= m)
-			update(l, r, ls,val);
+			update(l, r, ls, val);
 		if (r > m)
-			update(l, r, rs,val);
+			update(l, r, rs, val);
 		up(k);
 	}
 	int query(int l, int r, int k)
