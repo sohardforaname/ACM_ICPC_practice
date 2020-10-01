@@ -5,9 +5,9 @@ struct node
 {
 	int to, w;
 	node() {}
-	node(int _to, int _w) :to(_to), w(_w) {}
+	node(int _to, int _w) : to(_to), w(_w) {}
 };
-vector<node>G[N];
+vector<node> G[N];
 struct treediv
 {
 	int fa[N], dep[N], sz[N], son[N];
@@ -46,8 +46,8 @@ struct treediv
 treediv t;
 struct segtree
 {
-#define ls (k<<1)
-#define rs ((k<<1)+1)
+#define ls (k << 1)
+#define rs ((k << 1) + 1)
 	struct node
 	{
 		int l, r, val;
@@ -102,7 +102,7 @@ struct segtree
 			update(l, r, rs, v, id);
 		pushup(k);
 	}
-	int	query(int l, int r, int k)
+	int query(int l, int r, int k)
 	{
 		if (l <= tr[k].l && r >= tr[k].r)
 			return tr[k].val;
@@ -122,7 +122,7 @@ long long query(int u, int v, int k)
 	while (t.top[u] != t.top[v])
 	{
 		if (t.dep[t.top[u]] < t.dep[t.top[v]])
-			swap(u, v); 
+			swap(u, v);
 		num += tr[k].query(t.id[t.top[u]], t.id[u], 1);
 		ans += t.id[u] - t.id[t.top[u]] + 1;
 		u = t.fa[t.top[u]];

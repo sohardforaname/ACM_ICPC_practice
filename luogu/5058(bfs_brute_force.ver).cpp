@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int MAXN = 1e2 + 5;
-vector<int>G[MAXN];
+vector<int> G[MAXN];
 bool vis[MAXN];
-queue<int>Q;
+queue<int> Q;
 int a, b;
 bool bfs(int s)
 {

@@ -4,12 +4,12 @@ int num[15], tmp[15], sorted[15];
 struct bst
 {
 	int val;
-	bst* left;
-	bst* right;
+	bst *left;
+	bst *right;
 };
-bst* insert(bst *root, int val)
+bst *insert(bst *root, int val)
 {
-	bst* tmp = new bst{ val,NULL,NULL };
+	bst *tmp = new bst{val, NULL, NULL};
 	bst *p = root, *pre = NULL;
 	while (p)
 	{
@@ -39,7 +39,7 @@ int main()
 		res = insert(res, num[i]);
 	}
 	bool flag;
-	for (int i= 0; i < m; ++i)
+	for (int i = 0; i < m; ++i)
 	{
 		flag = 0;
 		for (int j = 0; j < n; ++j)

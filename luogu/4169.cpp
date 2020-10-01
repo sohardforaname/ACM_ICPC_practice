@@ -4,7 +4,7 @@ const int MAXN = 6e5 + 5;
 const int MAXM = 1e6 + 5;
 
 const int MAXBUF = 1 << 20;
-char buf[1 << 20], * fh = NULL, * ft = NULL;
+char buf[1 << 20], *fh = NULL, *ft = NULL;
 inline char gc()
 {
 	if (fh == ft)
@@ -37,20 +37,19 @@ inline void write(long long x)
 	putchar('\n');
 }
 
-
 struct node
 {
 	int x, y, kind;
 	int id;
-	node(int _x, int _y) :x(_x), y(_y) {}
-	node(){}
-	bool operator<(const node& a)const
+	node(int _x, int _y) : x(_x), y(_y) {}
+	node() {}
+	bool operator<(const node &a) const
 	{
 		return x == a.x ? y < a.y : x < a.x;
 	}
 };
 node s1[MAXN], s2[MAXN], b[MAXN];
-int d[4][2] = { {0,0},{0,1},{1,0},{1,1} };
+int d[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
 int ans[MAXN], n, m, tot, t;
 struct BIT
 {
