@@ -1,7 +1,7 @@
-#include <iostream>
-#include <cstring>
-#include <queue>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
+#include <queue>
 #include <vector>
 using namespace std;
 struct node
@@ -13,32 +13,32 @@ struct node
 		to = a, rate = b, cost = c;
 	}
 };
-vector<node>E[105];
+vector<node> E[105];
 int vis[105], inque[105];
 double dis[105];
-bool spfa(int n,double cur,int k)
+bool spfa(int n, double cur, int k)
 {
 	memset(inque, 0, sizeof(inque));
 	memset(vis, 0, sizeof(vis));
 	for (int i = 1; i <= n; ++i)
 		dis[i] = 0;
-	queue<int>que;
+	queue<int> que;
 	que.push(k);
 	vis[k] = 1;
 	++inque[k];
 	dis[k] = cur;
 	while (!que.empty())
 	{
-		int u = que.front();//出队
+		int u = que.front(); //出队
 		que.pop();
-		vis[u] = 0;//取消标记
+		vis[u] = 0; //取消标记
 		for (int i = 0; i < E[u].size(); ++i)
 		{
 			int v = E[u][i].to;
 			double tmp = (dis[u] - E[u][i].cost) * E[u][i].rate;
 			if (dis[v] < tmp)
 			{
-				dis[v] = tmp;//松弛
+				dis[v] = tmp; //松弛
 				if (!vis[v])
 				{
 					que.push(v);

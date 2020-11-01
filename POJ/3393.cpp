@@ -1,9 +1,9 @@
 #include <iostream>
 using namespace std;
 int num[10010][15][2];
-const int ping[12] = { 31,28,31,30,31,30,31,31,30,31,30,31 };
-const int run[12] = { 31,29,31,30,31,30,31,31,30,31,30,31 };
-int getnum(int y,int m)
+const int ping[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const int run[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+int getnum(int y, int m)
 {
 	if ((y < 1582 && y % 4 == 0) || y == 1700)
 		return run[m - 1];
@@ -26,7 +26,7 @@ void init()
 			{
 				if (k == 1)
 				{
-					if (s == 5 || s == 6 || s == 0)//周六周日周一
+					if (s == 5 || s == 6 || s == 0) //周六周日周一
 					{
 						if (j != 1)
 							num[i][j][0] = num[i][j - 1][0] + 1;
@@ -43,7 +43,7 @@ void init()
 				}
 				else if (k == x)
 				{
-					if (s == 4 || s == 5 || s == 6)//周五周六周日
+					if (s == 4 || s == 5 || s == 6) //周五周六周日
 					{
 						if (j != 1)
 							num[i][j][1] = num[i][j - 1][1] + 1;
@@ -56,7 +56,6 @@ void init()
 							num[i][j][1] = num[i][j - 1][1];
 						else
 							num[i][j][1] = num[i - 1][12][1];
-
 					}
 				}
 				if (i != 1752 || j != 9 || (k > 13 || k < 3))
