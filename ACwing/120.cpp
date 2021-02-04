@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define min(a,b) (a<b?a:b)
+#define min(a, b) (a < b ? a : b)
 using namespace std;
 typedef long long ll;
 const int MAXN = 2e5 + 5;

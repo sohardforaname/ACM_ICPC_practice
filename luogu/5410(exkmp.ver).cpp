@@ -12,7 +12,7 @@ void getnext(string &t)
 	int mx = 1;
 	for (int i = 2; i < t.size(); ++i)
 	{
-		if (i + nxt[i - mx] < nxt[mx] + mx)//the first situation
+		if (i + nxt[i - mx] < nxt[mx] + mx) //the first situation
 			nxt[i] = nxt[i - mx];
 		else
 		{
@@ -25,7 +25,7 @@ void getnext(string &t)
 		}
 	}
 }
-void exkmp(string& s, string& t)
+void exkmp(string &s, string &t)
 {
 	int now = 0;
 	while (now < min(s.size(), t.size()) && s[now] == t[now])
@@ -34,7 +34,7 @@ void exkmp(string& s, string& t)
 	int mx = 0;
 	for (int i = 1; i < s.size(); ++i)
 	{
-		if (i + nxt[i - mx] < extend[mx] + mx)//the first situation
+		if (i + nxt[i - mx] < extend[mx] + mx) //the first situation
 			extend[i] = nxt[i - mx];
 		else
 		{
@@ -57,7 +57,7 @@ int main()
 	exkmp(s, t);
 	for (int i = 0; i < t.size(); ++i)
 		printf("%d%c", nxt[i], i == t.size() - 1 ? '\n' : ' ');
-	for(int i=0;i<s.size();++i)
+	for (int i = 0; i < s.size(); ++i)
 		printf("%d%c", extend[i], i == s.size() - 1 ? '\n' : ' ');
 	return 0;
 }

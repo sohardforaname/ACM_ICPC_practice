@@ -1,6 +1,6 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 using namespace std;
 #define Tree 100005
 struct Segtree
@@ -9,7 +9,7 @@ struct Segtree
 	{
 		int l, r;
 		int val, lazy;
-	}tree[Tree * 4];
+	} tree[Tree * 4];
 	void build(int l, int r, int k)
 	{
 		tree[k].l = l, tree[k].r = r, tree[k].lazy = 0;
@@ -98,7 +98,7 @@ int main()
 			cin >> a >> b;
 			if (a > b)
 				swap(a, b);
-			cout << cal(seg.ask(a, b, 1)) << endl;
+			cout << cal(seg.ask(a, b, 1)) << '\n';
 		}
 	}
 	return 0;

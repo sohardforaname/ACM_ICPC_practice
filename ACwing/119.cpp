@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-#define min(a,b) (a<b?a:b)
+#define min(a, b) (a < b ? a : b)
 const int MAXN = 1e5 + 5;
 const double INF = 2e18;
 struct node
@@ -10,15 +10,15 @@ struct node
 	bool tag;
 };
 node a[MAXN], tmp[MAXN];
-double cmp(node& a, node& b)
+double cmp(node &a, node &b)
 {
 	return a.x == b.x ? a.y < b.y : a.x < b.x;
 }
-double cmp_y(node& a, node& b)
+double cmp_y(node &a, node &b)
 {
 	return a.y < b.y;
 }
-double dist(node& a, node& b)
+double dist(node &a, node &b)
 {
 	return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }

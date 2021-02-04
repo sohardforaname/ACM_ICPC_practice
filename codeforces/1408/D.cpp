@@ -6,7 +6,7 @@ int sx[N], sy[N];
 vector<pair<int, int>> v, u;
 int main()
 {
-    int n, m;
+    /*int n, m;
     scanf("%d%d", &n, &m);
     for (int i = 1; i <= n; ++i)
         scanf("%d%d", &p[i].first, &p[i].second);
@@ -20,6 +20,6 @@ int main()
     int ans = max((*u.begin()).first, u.back().second);
     for (int i = 1; i < u.size(); ++i)
         ans = min(ans, u[i].first + u[i - 1].second);
-    printf("%d\n", ans);
+    printf("%d\n", ans);*/
     return 0;
 }

@@ -4,7 +4,7 @@ const int MAXN = 2.5e3 + 5;
 struct cow
 {
 	int minn, maxn;
-	bool operator<(const cow& a)const
+	bool operator<(const cow &a) const
 	{
 		return minn == a.minn ? maxn > a.maxn : minn > a.minn;
 	}

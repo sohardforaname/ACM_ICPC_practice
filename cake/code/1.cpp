@@ -1,177 +1,87 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <algorithm>
-using std::cin;
-using std::sort;
-using std::string;
-using std::swap;
-
-struct node
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int N = 1e5 + 5, M = 1e6 + 5;
+ll sum[N << 2];
+int a[N];
+#define ls (k << 1)
+#define rs ((k << 1) + 1)
+void build(int l, int r, int k)
 {
-    string str;
-    int cnt;
-    node() : str(string()), cnt(0) {}
-    node(const string &_str, int _cnt) : str(_str), cnt(_cnt) {}
-    bool operator<(const node &a) const
-    {
-        return str < a.str;
-    }
-    node &operator=(const node &a)
-    {
-        this->cnt = a.cnt;
-        this->str = a.str;
-        return *this;
-    }
-    node(const node &a)
-    {
-        str = a.str;
-        cnt = a.cnt;
-    }
-};
-
-template <typename T>
-struct vector
-{
-    T *buffer;
-    size_t size;
-    size_t capacity;
-    vector() : buffer(nullptr), size(0), capacity(0) {}
-    vector(const vector &vec)
-    {
-        buffer = new T[vec.capacity];
-        size = vec.size;
-        capacity = vec.capacity;
-        for (int i = 0; i < size; ++i)
-            buffer[i] = vec[i];
-    }
-    void reserve(size_t _size)
-    {
-        T *newBuffer = new T[_size];
-        for (int i = 0; i < size; ++i)
-            newBuffer[i] = buffer[i];
-        delete[] buffer;
-        buffer = newBuffer;
-        capacity = _size;
-    }
-    void push_back(const T &_elem)
-    {
-        if (size == capacity)
-            reserve((size << 1) + 1);
-        buffer[size++] = _elem;
-    }
-    T &operator[](size_t _pos)
-    {
-        if (_pos < 0 || _pos >= size)
-            exit(-1);
-        return buffer[_pos];
-    }
-    void pop_back()
-    {
-        if (!size)
-            exit(-1);
-        --size;
-    }
-    ~vector()
-    {
-        delete[] buffer;
-    }
-};
-
-vector<node> strvec[2];
-void Insert(int _pos, string str)
-{
-    str.append(":");
-    for (int i = 0; i < strvec[_pos].size; ++i)
-        if (strvec[_pos][i].str == str)
-        {
-            ++strvec[_pos][i].cnt;
-            return;
-        }
-    strvec[_pos].push_back({str, 1});
+    if (l == r)
+        return void(sum[k] = a[l]);
+    int m = (l + r) >> 1;
+    build(l, m, ls);
+    build(m + 1, r, rs);
+    sum[k] = sum[ls] + sum[rs];
 }
-#include <cassert>
-
-void calculate()
+void update(int l, int r, int k, int pos, int v)
 {
-    printf("%-20s%-20s%s\n", "Unique", "Word Count", "Similarity");
-    printf("%-20s%-10s%-10s%s\n", "Words", "Text-1", "Text-2", "Index (0 to 1)");
-    int i = 0, j = 0;
-    while (i < strvec[0].size && j < strvec[1].size)
-    {
-        if (strvec[0][i] < strvec[1][j])
-        {
-            printf("%-20s%-10d%-10d%-10d\n", strvec[0][i].str.c_str(),
-                   strvec[0][i].cnt, 0, 0);
-            ++i;
-        }
-        else if (strvec[1][j] < strvec[0][i])
-        {
-            printf("%-20s%-10d%-10d%-10d\n", strvec[1][j].str.c_str(),
-                   0, strvec[1][j].cnt, 0);
-            ++j;
-        }
-        else if (i < strvec[0].size && j < strvec[1].size)
-        {
-            printf("%-20s%-10d%-10d", strvec[0][i].str.c_str(),
-                   strvec[0][i].cnt, strvec[1][j].cnt);
-            int cnta = strvec[0][i].cnt, cntb = strvec[1][j].cnt;
-            if (cnta > cntb)
-                swap(cnta, cntb);
-            printf("%.6f\n", 1.0 * cnta / cntb);
-            ++i, ++j;
-        }
-    }
-    while (i < strvec[0].size)
-    {
-        printf("%-20s%-10d%-10d%-10d\n", strvec[0][i].str.c_str(),
-               strvec[0][i].cnt, 0, 0);
-        ++i;
-    }
-    while (j < strvec[1].size)
-    {
-        printf("%-20s%-10d%-10d%-10d\n", strvec[1][j].str.c_str(),
-               0, strvec[1][j].cnt, 0);
-        ++j;
-    }
-    printf("\n\n");
+    if (l == r)
+        return void(sum[k] += v);
+    int m = (l + r) >> 1;
+    if (pos <= m)
+        update(l, m, ls, pos, v);
+    else
+        update(m + 1, r, rs, pos, v);
+    sum[k] = sum[ls] + sum[rs];
 }
-void unique()
+ll query(int l, int r, int k, int ql, int qr)
 {
-    for (int i = 0; i < 2; ++i)
-        for (int j = 0; j < strvec[i].size; ++j)
-            strvec[i][j].cnt = 1;
+    if (ql <= l && r <= qr)
+        return sum[k];
+    ll ans = 0;
+    int m = (l + r) >> 1;
+    if (ql <= m)
+        ans += query(l, m, ls, ql, qr);
+    if (qr > m)
+        ans += query(m + 1, r, rs, ql, qr);
+    return ans;
 }
-
-/*
-one two two three three four four four four
-zero one two three four five five five five five
-*/
-
-#include <sstream>
-using std::stringstream;
-
+set<int> s[M];
+int n, m, tmp[N];
+void update(int l, int r, int v)
+{
+    int top = 0;
+    for (int i = v; i <= 1e6; i += v)
+    {
+        auto itl = s[i].lower_bound(l), itr = s[i].upper_bound(r);
+        for (; itl != itr; ++itl)
+        {
+            s[i / v].insert(*itl);
+            update(1, n, 1, *itl, i / v - i);
+            tmp[++top] = *itl;
+        }
+        for (int i = 1; i <= top; ++i)
+            s[i].erase(tmp[i]);
+    }
+}
 int main()
 {
-    string a, b, tmp;
-    printf("依次输入第一个字符串，回车，输入第二个字符串，回车\n");
-    getline(cin, a);
-    getline(cin, b);
-    stringstream ss;
-    ss << a;
-    while (ss >> tmp)
-        Insert(0, tmp);
-    ss.clear();
-    ss << b;
-    while (ss >> tmp)
-        Insert(1, tmp);
-
-    sort(strvec[0].buffer, strvec[0].buffer + strvec[0].size);
-    sort(strvec[1].buffer, strvec[1].buffer + strvec[1].size);
-
-    calculate();
-    unique();
-    calculate();
-    system("pause");
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; ++i)
+    {
+        scanf("%d", &a[i]);
+        s[a[i]].insert(i);
+    }
+    build(1, n, 1);
+    for (int i = 1; i <= m; ++i)
+    {
+        int op, l, r;
+        scanf("%d", &op);
+        if (op == 1)
+        {
+            int l, r, v;
+            scanf("%d%d%d", &l, &r, &v);
+            if (v == 1)
+                continue;
+            update(l, r, v);
+        }
+        else
+        {
+            scanf("%d%d", &l, &r);
+            printf("%lld\n", query(1, n, 1, l, r));
+        }
+    }
     return 0;
 }

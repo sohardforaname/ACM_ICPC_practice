@@ -1,12 +1,12 @@
 #include <cstdio>
 #include <cstring>
-#include <queue>
 #include <map>
+#include <queue>
 using namespace std;
 typedef long long ll;
 const int N = 105;
 const int mod = 100000;
-map<char, int>mp;
+map<char, int> mp;
 int trie[N][4];
 int fail[N];
 bool f[N];
@@ -20,7 +20,7 @@ struct Mat
 };
 char s[15];
 int cnt;
-void insert(char* s, int len)
+void insert(char *s, int len)
 {
 	int root = 0;
 	for (int i = 0; i < len; ++i)
@@ -34,7 +34,7 @@ void insert(char* s, int len)
 }
 void getfail()
 {
-	queue<int>q;
+	queue<int> q;
 	for (int i = 0; i < 4; ++i)
 		if (trie[0][i])
 			q.push(trie[0][i]), fail[trie[0][i]] = 0;
@@ -56,7 +56,7 @@ void getfail()
 		}
 	}
 }
-Mat mul(const Mat& a, const Mat& b, int n)
+Mat mul(const Mat &a, const Mat &b, int n)
 {
 	Mat res;
 	for (int i = 0; i <= n; ++i)
