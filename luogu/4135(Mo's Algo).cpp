@@ -17,11 +17,9 @@ int main()
         bg[i] = (i - 1) * len + 1, ed[i] = i * len;
     if (ed[t] < n)
         bg[t + 1] = ed[t] + 1, ed[++t] = n;
-    for (int i = 1; i <= t; ++i)
-    {
+    for (int i = 1; i <= t; ++i) {
         int cur = 0;
-        for (int j = bg[i]; j <= n; ++j)
-        {
+        for (int j = bg[i]; j <= n; ++j) {
             ++bcnt[i][a[j]];
             if (bcnt[i][a[j]] > 1 && bcnt[i][a[j]] & 1)
                 --cur;
@@ -32,8 +30,7 @@ int main()
         }
     }
     int ans = 0;
-    for (int i = 1; i <= m; ++i)
-    {
+    for (int i = 1; i <= m; ++i) {
         int l, r;
         scanf("%d%d", &l, &r);
         l = (l + ans) % n + 1, r = (r + ans) % n + 1;
@@ -52,32 +49,25 @@ int main()
         else
             L = 1, R = 0;
         ans = cnt[L][R];
-        if (x == y)
-        {
+        if (x == y) {
             for (int j = l; j <= r; ++j)
                 ++num[a[j]], s.push(a[j]);
-            while (s.size())
-            {
+            while (s.size()) {
                 int tp = s.top();
-                if (num[tp])
-                {
+                if (num[tp]) {
                     ans += !(num[tp] & 1);
                     num[tp] = 0;
                 }
                 s.pop();
             }
-        }
-        else
-        {
+        } else {
             for (int j = l; j <= ed[x]; ++j)
                 ++num[a[j]], s.push(a[j]);
             for (int j = bg[y]; j <= r; ++j)
                 ++num[a[j]], s.push(a[j]);
-            while (s.size())
-            {
+            while (s.size()) {
                 int tp = s.top();
-                if (num[tp])
-                {
+                if (num[tp]) {
                     int tmp = bcnt[L][tp] - bcnt[R + 1][tp];
                     if (tmp > 0 && tmp & 1 && num[tp] & 1)
                         ++ans;

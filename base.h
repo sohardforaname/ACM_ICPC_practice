@@ -10,157 +10,160 @@ typedef pair<ll, int> pli;
 typedef pair<ll, ll> pll;
 typedef vector<pii> vpii;
 
-class IO
-{
-private:
-    const int MAXBUF = 1 << 20;
-    char buf[1 << 20], *fh, *ft;
-    int f;
-    inline char gc()
+struct IO {
+    int operator()(int& x)
     {
-        if (fh == ft)
-        {
-            ft = (fh = buf) + fread(buf, 1, MAXBUF, stdin);
-            if (fh == ft)
-                return EOF;
-        }
-        return *fh++;
+        return scanf("%d", &x);
     }
-    bool isdigit(const char &ch)
+    int operator()(ll& x)
     {
-        return ch >= '0' && ch <= '9';
+        return scanf("%lld", &x);
     }
-    bool isblank(const char &ch)
+    int operator()(double& x)
     {
-        return ch < '_' || ch > '~';
+        return scanf("%lf", &x);
     }
-    template <class T>
-    inline int _read(T &x)
+    int operator()(char* s)
     {
-        char c;
-        for (c = gc(); c != EOF && !isdigit(c); c = gc())
-            ;
-        if (c == EOF)
-            return c;
-        f = 1;
-        if (c == '-')
-            f = -f;
-        for (x = 0; c != EOF && isdigit(c); c = gc())
-            x = x * 10ll + c - '0';
-        x *= f;
-        return c;
+        return scanf("%s", s);
     }
-    inline int _read(double &x)
+    int operator()(char& ch)
     {
-        ll i;
-        char c = _read(i);
-        double p = 0.1, s = 0;
-        if (c == EOF)
-            return -1;
-        x = i;
-        if (c == '.')
-            for (c = gc(); c != EOF && isdigit(c); c = gc())
-                s += p * (1.0 * c - '0'), p *= 0.1;
-        x += s * f;
-        return c;
-    }
-    inline int _read(char *s)
-    {
-        char c;
-        for (c = gc(); c != EOF && isblank(c); c = gc())
-            ;
-        if (c == EOF)
-            return c;
-        for (; c != EOF && !isblank(c); c = gc())
-            *(s++) = c;
-        *s = 0;
-        return c;
-    }
-    template <class T>
-    inline void _write(const T &x)
-    {
-        if (x > 9)
-            _write(x / 10);
-        putchar(x % 10 + '0');
+        return scanf("%c", &ch);
     }
 
 public:
-    int operator()(char *x)
+    size_t readElement;
+
+private:
+    template <class T>
+    inline int getarray(T& arr, const size_t beg, const size_t end)
     {
-        return _read(x);
+        int rtv = -1;
+        readElement = 0;
+        for (size_t i = beg; i < end && rtv; ++i, ++readElement)
+            rtv = (*this)(arr[i]);
+        return rtv;
+    }
+
+public:
+    template <class T>
+    static tuple<vector<T>&, size_t> make(
+        vector<T>& vec, size_t size)
+    {
+        return move(make_tuple(ref(vec), size));
     }
     template <class T>
-    int operator()(T &x)
+    inline int operator()(tuple<vector<T>&, size_t> tp)
     {
-        return _read(x);
+        auto& vec = get<0>(tp);
+        auto len = get<1>(tp);
+
+        vec.resize(len);
+        return getarray(vec, 0, len);
     }
+
+    //input a series of numbers and store them in an array
+    template <class T>
+    static tuple<T*, size_t, size_t> make(
+        T* arr, size_t beg, size_t end)
+    {
+        return move(make_tuple(arr, beg, end));
+    }
+    template <class T>
+    inline int operator()(tuple<T*, size_t, size_t> tp)
+    {
+        return getarray(get<0>(tp), get<1>(tp), get<2>(tp));
+    }
+
     template <class T, class... Ts>
-    int operator()(T &x, Ts &... y)
+    int operator()(T&& x, Ts&&... y)
     {
-        if (_read(x) == -1)
-            return -1;
-        return (*this)(y...);
+        return (*this)(forward<T>(x)) + (*this)(y...);
     }
-    template <class T>
-    inline void operator()(const T &x, const char &ch)
+} io;
+class WriteIO {
+
+public:
+    // output
+    int w;
+    void operator()(const int x, const char ch)
     {
-        if (x < 0)
-            putchar('-');
-        _write(x > 0 ? x : -x);
-        putchar(ch);
+        printf("%d%c", x, ch);
     }
-    inline void operator()(const double &x, const int &w, const char &ch)
+    void operator()(const ll x, const char ch)
+    {
+        printf("%lld%c", x, ch);
+    }
+    void operator()(const char x, const char ch)
+    {
+        putchar(x);
+    }
+    void operator()(const double x, const char ch)
     {
         printf("%.*lf", w, x);
         putchar(ch);
     }
-    inline void operator()(const char *s, const char &ch)
+    template <class Iter>
+    void operator()(Iter beg, Iter end, const char ch)
     {
-        printf("%s", s);
-        putchar(ch);
+        for (auto it = beg; it != end; ++it)
+            (*this)(*it, ch);
+        putchar('\n');
     }
-    IO() : ft(NULL), fh(NULL) {}
-} io; //class IO
-struct util
-{
+    void operator()(const char* s, const char ch)
+    {
+        printf("%s%c", s, ch);
+    }
+    template <class T>
+    void operator()(const T* arr, int beg, int end, const char ch)
+    {
+        for (auto it = beg; it != end; ++it)
+            (*this)(arr[it], ch);
+        putchar('\n');
+    }
+    WriteIO()
+        : w(6)
+    {
+    }
+} wio; // class IO
+struct util {
 private:
     template <class T>
-    static T get()
+    constexpr static T get()
     {
         return 63;
     }
-    static int get()
+    constexpr static int get()
     {
         return 31;
     }
 
 public:
     template <class T>
-    static inline void cmax(T &a, const T &b)
+    static constexpr void cmax(T& a, const T& b)
     {
         if (a < b)
             a = b;
     }
     template <class T>
-    static inline void cmin(T &a, const T &b)
+    static constexpr void cmin(T& a, const T& b)
     {
         if (b < a)
             a = b;
     }
     template <class T>
-    static inline void addm(T &a, const T &b, const T &mod)
+    static constexpr void addm(T& a, const T& b, const T& mod)
     {
         a += b - mod;
         a += (a >> get<T>()) & mod;
     }
 } util; // class util
-struct math
-{
-    static inline ll pow(ll a, ll b, const ll &p)
+struct math {
+    static constexpr ll pow(ll a, ll b, const ll& p)
     {
         ll res = 1;
-        while (b)
-        {
+        while (b) {
             if (b & 1)
                 res = res * a % p;
             a = a * a % p;
@@ -168,11 +171,10 @@ struct math
         }
         return res;
     }
-    static inline ll mul(ll a, ll b, const ll &p)
+    static constexpr ll mul(ll a, ll b, const ll& p)
     {
         ll res = 0;
-        while (b)
-        {
+        while (b) {
             if (b & 1)
                 util.addm(res, a, p);
             util.addm(a, a, p);
@@ -180,41 +182,11 @@ struct math
         }
         return res;
     }
-    static inline ll gcd(ll a, ll b)
+    static constexpr ll gcd(ll a, ll b)
     {
         return !b ? a : gcd(b, a % b);
     }
 } math; // class math
-struct debug
-{
-    template <class T>
-    inline void operator()(const vector<T> &v)
-    {
-        for (int i = 0; i < v.size(); ++i)
-            io(v[i], i == v.size() - 1 ? '\n' : ' ');
-    }
-    template <class T>
-    inline void operator()(const T *v, size_t sz)
-    {
-        for (int i = 1; i <= sz; ++i)
-            io(v[i], i == sz ? '\n' : ' ');
-    }
-    template <class T>
-    inline void operator()(const T *v, size_t beg, size_t end)
-    {
-        for (int i = beg; i <= end; ++i)
-            io(v[i], i == end ? '\n' : ' ');
-    }
-    template <class T>
-    inline void operator()(const T &v)
-    {
-        io(v, '\n');
-    }
-    inline void operator()(const double &v, const int &w)
-    {
-        io(v, w, '\n');
-    }
-}; // class debug
 const ll mod98 = 998244353;
 const ll mod17 = 1e9 + 7;
 const ll mod19 = 1e9 + 9;

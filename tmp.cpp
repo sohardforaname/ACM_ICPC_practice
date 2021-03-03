@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main(int argc, char **argv)
+const int N = 1e3 + 5;
+int main()
 {
-    int seed = time(0);
-    if (argc > 1)
-        seed = atoi(argv[1]);
-    srand(seed);
-    int n = rand() % 5 + 1, m = rand() % 20 + 1;
-    printf("%d %d\n", n, m);
-    for (int i = 1; i <= n; ++i)
-        printf("%d\n", rand() % 20 + m + 1);
+    mt19937 mt;
+    mt.seed(1e9 + 7);
+    int n = mt() % 10, m = mt() % 10;
+    for (int i = 1; i <= m; ++i) {
+        int op = mt() % 4 + 1;
+    }
     return 0;
 }
