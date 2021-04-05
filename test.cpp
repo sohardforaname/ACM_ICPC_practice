@@ -1,81 +1,30 @@
-#include "base.h"
-
-#include <algorithm>
-#include <cstdio>
-#include <cstring>
-#include <iostream>
-#include <map>
-#include <queue>
-#include <set>
-#include <vector>
-
-#define ll long long
-#define MOD 1000000007
-#define MAXN 1005
+#include <bits/stdc++.h>
 using namespace std;
-
-ll X[MAXN], Y[MAXN], Z[MAXN];
-
-void add(int L, int R, int a, int b, int c)
+constexpr int N = 1e6 + 5, Inf = INT_MAX;
+int n, f[4];
+char s[N];
+int main(int argc, char** argv)
 {
-    for (int i = L; i <= R; ++i) {
-        X[i] = (X[i] + a) % MOD;
-        Y[i] = (Y[i] + b) % MOD;
-        Z[i] = (Z[i] + c) % MOD;
-    }
-}
-
-void muil(int L, int R, int k)
-{
-    for (int i = L; i <= R; ++i) {
-        X[i] = X[i] * k % MOD;
-        Y[i] = Y[i] * k % MOD;
-        Z[i] = Z[i] * k % MOD;
-    }
-}
-
-void turn(int L, int R)
-{
-    for (int i = L; i <= R; ++i) {
-        int tmp = X[i];
-        X[i] = Y[i];
-        Y[i] = Z[i];
-        Z[i] = tmp;
-    }
-}
-
-void query(int L, int R)
-{
-    ll dist;
-    ll x = 0, y = 0, z = 0;
-    for (int i = L; i <= R; ++i) {
-        x = (x + X[i]) % MOD;
-        y = (y + Y[i]) % MOD;
-        z = (z + Z[i]) % MOD;
-    }
-    printf("%lld\n", (x * x % MOD + y * y % MOD + z * z % MOD) % MOD);
-}
-
-int main()
-{
-    int N, M;
-    int m, l, r, a, b, c;
-    scanf("%d%d", &N, &M);
-    for (int i = 0; i < M; ++i) {
-        scanf("%d", &m);
-        if (m == 1) {
-            scanf("%d%d%d%d%d", &l, &r, &a, &b, &c);
-            add(l, r, a, b, c);
-        } else if (m == 2) {
-            scanf("%d%d%d", &l, &r, &a);
-            muil(l, r, a);
-        } else if (m == 3) {
-            scanf("%d%d", &l, &r);
-            turn(l, r);
-        } else {
-            scanf("%d%d", &l, &r);
-            query(l, r);
+    freopen((string("D:/4.3-data/A/") + to_string(stoi(argv[1]) + 1) + ".out").c_str(), "w", stdout);
+    freopen((string("D:/4.3-data/A/") + to_string(stoi(argv[1]) + 1) + ".in").c_str(), "r", stdin);
+    scanf("%s", s);
+    n = strlen(s);
+    fill(f, f + 4, -Inf);
+    for (int i = 0; i < n; ++i)
+        switch (s[i]) {
+        case '1':
+            f[0] < 0 ? f[0] = 1 : ++f[0];
+            break;
+        case '8':
+            f[1] = max(f[0], f[1]) + 1;
+            break;
+        case '0':
+            f[2] = max(f[1], f[2]) + 1;
+            break;
+        case '7':
+            f[3] = max(f[2], f[3]) + 1;
+            break;
         }
-    }
-    string s = "abc";
+    printf("%d\n", f[3] > 0 ? f[3] : -1);
+    return 0;
 }

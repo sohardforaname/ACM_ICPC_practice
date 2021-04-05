@@ -10,8 +10,8 @@ class Solution {
 public:
     vector<double> medianSlidingWindow(vector<int>& nums, int k)
     {
-        multiset<long long> s1;
-        multiset<long long> s2;
+        multiset<long> s1;
+        multiset<long> s2;
         vector<double> v;
         for (int i = 0; i < nums.size(); ++i) {
             if (!s1.size() || nums[i] <= *(--s1.end()))
@@ -41,7 +41,7 @@ public:
             else
                 v.emplace_back((*(--s1.end()) + *s2.begin()) / 2.0);
         }
-        return move(v);
+        return v;
     }
 };
 // @lc code=end

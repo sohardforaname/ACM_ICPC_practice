@@ -1,24 +1,21 @@
-#include <iostream>
-#include <cstring>
 #include <algorithm>
+#include <cstring>
+#include <iostream>
 using namespace std;
 #define MAXN 100005
-struct value
-{
+struct value {
     int id;
     int x;
 };
 value v[MAXN];
 int hashing[MAXN];
-bool cmp(const value &a, const value &b)
+bool cmp(const value& a, const value& b)
 {
     return a.x < b.x;
 }
 int cnt = 0;
-struct cheiftree
-{
-    struct node
-    {
+struct cheiftree {
+    struct node {
         int l, r; //l,r记录节点编号而不是区间长
         int sum;
         node()
@@ -30,16 +27,16 @@ struct cheiftree
     int root[MAXN];
     void init()
     {
-        cnt = 1;                           //树根计数
+        cnt = 1; //树根计数
         tr[0].l = tr[0].r = tr[0].sum = 0; //左右孩子的权值初始化为0
-        root[0] = 0;                       //树根初始化为0
+        root[0] = 0; //树根初始化为0
     }
-    void update(int l, int r, int &nrt, int num) //l，m表示区间范围
+    void update(int l, int r, int& nrt, int num) //l，m表示区间范围
     {
         tr[cnt++] = tr[nrt]; //新的树根，nrt代表的单元此时为root[i-1]
-        nrt = cnt - 1;       //将cnt-1赋给root[i]即为将树根标记序号
-        ++tr[nrt].sum;       //然后传入一个新数，权值即数的个数+1，数量即为root[i-1]+1
-        if (l == r)          //到达叶节点
+        nrt = cnt - 1; //将cnt-1赋给root[i]即为将树根标记序号
+        ++tr[nrt].sum; //然后传入一个新数，权值即数的个数+1，数量即为root[i-1]+1
+        if (l == r) //到达叶节点
             return;
         int m = (l + r) / 2; //计算区间中点
         if (num <= m)
@@ -76,14 +73,12 @@ int main()
         hashing[v[i].id] = i;
     //主席树
     ct.init();
-    for (int i = 1; i <= n; ++i)
-    {
+    for (int i = 1; i <= n; ++i) {
         ct.root[i] = ct.root[i - 1];
         ct.update(1, n, ct.root[i], hashing[i]); //每次加入一个值时建立一棵新树，把节点新值加入到权值树中
     }
     int a, b, k;
-    for (int i = 0; i < m; ++i)
-    {
+    for (int i = 0; i < m; ++i) {
         cin >> a >> b >> k;
         //v[i].id=b,hash[v[i].id]=c => v[c]=v[hash[v[i].id]]=v[i];
         cout << v[ct.query(ct.root[a - 1], ct.root[b], k, 1, n)].x << endl; //查询区间第k大的hash值，然后逆推出真实值
