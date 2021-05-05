@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-const int N = 1e4 + 5;
+const int N = 2e5 + 5;
 struct edge {
     int to;
     ll w;
