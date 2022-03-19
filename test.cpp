@@ -1,29 +1,38 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <algorithm>
+#include <cstdio>
+#include <string>
 
-typedef long long ll;
-ll cnt1 = 0, ans = 0;
-const ll mod = 1e9 + 7;
-
-ll mul(ll a, ll b, ll p)
+void FindShortestSeparator(
+    std::string* start,
+    const std::string& limit)
 {
-    ll res = 0;
-    while (b) {
-        if (b & 1) {
-            res = (res + a) % p;
+    // Find length of common prefix
+    size_t min_length = std::min(start->size(), limit.size());
+    size_t diff_index = 0;
+
+    //查找start和limit的相同的字符
+    while ((diff_index < min_length) && ((*start)[diff_index] == limit[diff_index])) {
+        diff_index++;
+    }
+
+    //如果一个另一个的前缀的话，则无需改变
+    if (diff_index >= min_length) {
+        // Do not shorten if one string is a prefix of the other
+    } else {
+        //改变start值，作为结果返回
+        uint8_t diff_byte = static_cast<uint8_t>((*start)[diff_index]);
+        if (diff_byte < static_cast<uint8_t>(0xff) && diff_byte + 1 < static_cast<uint8_t>(limit[diff_index])) {
+            (*start)[diff_index]++;
+            start->resize(diff_index + 1);
         }
-        a = (a + a) % p;
-        b >>= 1;
     }
-    return res;
+    printf("%s %s", start->c_str(), limit.c_str());
 }
-int main(int argc, char** argv)
+
+int main()
 {
-    freopen("D:\\4.3-data\\1.out", "r", stdin);
-    ll a;
-    while (~scanf("%lld", &a)) {
-        ans = (ans + mul(a, ++cnt1, mod)) % mod;
-    }
-    printf("%lld\n", ans);
+    auto str1 = std::string("aaabde");
+    auto str2 = std::string("aaacde");
+    FindShortestSeparator(&str1, str2);
     return 0;
 }
